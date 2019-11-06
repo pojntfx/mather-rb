@@ -9,14 +9,34 @@ A simple math gRPC microservice, for the purpose of learning and evaluating Ruby
 
 ## Usage
 
+### From Source (Interpreter)
+
 ```bash
-# Build protos
-cd ./src/svc/proto/
-grpc_tools_ruby_protoc --ruby_out=. --grpc_out=. ./mather.proto
-cd ../../../
+# Build
+make
 
 # Run
-./src/cmd/server/mather
+make run
+```
+
+### From Source (Binary)
+
+```bash
+# Build
+make
+
+# Build binary
+make build-binary-linux-amd64
+# or
+make build-binary-darwin-amd64
+
+# Install binary
+make install-binary-linux-amd64
+# or
+make install-binary-darwin-amd64
+
+# Run
+math-rb-server
 ```
 
 ## License
