@@ -12,6 +12,9 @@ A simple math gRPC microservice, for the purpose of learning and evaluating Ruby
 ### From Source (Interpreter)
 
 ```bash
+# Install dependencies
+bundle install
+
 # Build
 bundle exec rake
 
@@ -22,6 +25,9 @@ bundle exec rake run
 ### From Source (Binary)
 
 ```bash
+# Install dependencies
+bundle install
+
 # Build
 bundle exec rake
 
