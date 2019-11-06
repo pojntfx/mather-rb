@@ -11,12 +11,12 @@ A simple math gRPC microservice, for the purpose of learning and evaluating Ruby
 
 ```bash
 # Build protos
-cd ./src/lib/proto/
+cd ./src/svc/proto/
 grpc_tools_ruby_protoc --ruby_out=. --grpc_out=. ./mather.proto
 cd ../../../
 
 # Run
-./src/cmd/mather
+./src/cmd/server/mather
 ```
 
 ## License

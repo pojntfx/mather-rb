@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+this_dir = File.expand_path(File.dirname(__FILE__))
+lib_dir = File.join(this_dir, '..', '..', 'svc')
+$LOAD_PATH.unshift(lib_dir)
+
+require 'rubygems'
+require 'bundler/setup'
+require 'grpc'
+require 'mather'
+
+s = GRPC::RpcServer.new
+s.add_http2_port('0.0.0.0:30000', :this_port_is_insecure)
+s.handle(MatherService)
+s.run_till_terminated_or_interrupted([1, 'int', 'SIGQUIT'])
