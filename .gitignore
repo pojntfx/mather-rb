@@ -1,1 +1,11 @@
-**/**/**/*pb.*
+/.bundle/
+/.yardoc
+/_yardoc/
+/coverage/
+/doc/
+/pkg/
+/spec/reports/
+/tmp/
+/**/**/**/*pb.*
+/.bin/
+
