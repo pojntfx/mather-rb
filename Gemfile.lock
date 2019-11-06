@@ -13,6 +13,7 @@ GEM
     grpc (1.25.0)
       google-protobuf (~> 3.8)
       googleapis-common-protos-types (~> 1.0)
+    grpc-tools (1.25.0)
     rake (10.5.0)
 
 PLATFORMS
@@ -20,6 +21,7 @@ PLATFORMS
 
 DEPENDENCIES
   bundler (~> 2.0)
+  grpc-tools
   mather-rb!
   rake (~> 10.0)
 
