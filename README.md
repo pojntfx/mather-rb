@@ -13,27 +13,27 @@ A simple math gRPC microservice, for the purpose of learning and evaluating Ruby
 
 ```bash
 # Build
-rake
+bundle exec rake
 
 # Run
-rake run
+bundle exec rake run
 ```
 
 ### From Source (Binary)
 
 ```bash
 # Build
-rake
+bundle exec rake
 
 # Build binary
-rake 'build_binary[linux,amd64]'
+bundle exec rake 'build_binary[linux,amd64]'
 # or
-rake 'build_binary[darwin,amd64]'
+bundle exec rake 'build_binary[darwin,amd64]'
 
 # Install binary
-sudo rake 'install_binary[linux,amd64]'
+sudo bundle exec rake 'install_binary[linux,amd64]'
 # or
-sudo rake 'install_binary[darwin,amd64]'
+sudo bundle exec rake 'install_binary[darwin,amd64]'
 
 # Run
 math-rb-server
