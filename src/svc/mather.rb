@@ -13,16 +13,18 @@ class MatherService < Mather::Math::Service
     if req.First == 0
       raise GRPC::BadStatus.new(
               GRPC::Core::StatusCodes::INVALID_ARGUMENT,
-              'could not add, `First` has not been provided'
+              'Could not add, `First` has not been provided'
             )
     end
 
     if req.Second == 0
       raise GRPC::BadStatus.new(
               GRPC::Core::StatusCodes::INVALID_ARGUMENT,
-              'could not add, `Second` has not been provided'
+              'Could not add, `Second` has not been provided'
             )
     end
+
+    puts "Adding #{req.First} to #{req.Second}"
 
     Mather::MathAddReply.new(Result: MatherLib.new.add(req.First, req.Second))
   end
@@ -31,16 +33,18 @@ class MatherService < Mather::Math::Service
     if req.First == 0
       raise GRPC::BadStatus.new(
               GRPC::Core::StatusCodes::INVALID_ARGUMENT,
-              'could not add, `First` has not been provided'
+              'Could not add, `First` has not been provided'
             )
     end
 
     if req.Second == 0
       raise GRPC::BadStatus.new(
               GRPC::Core::StatusCodes::INVALID_ARGUMENT,
-              'could not add, `Second` has not been provided'
+              'Could not add, `Second` has not been provided'
             )
     end
+
+    puts "Subtracting #{req.First} from #{req.Second}"
 
     Mather::MathSubtractReply.new(
       Result: MatherLib.new.subtract(req.First, req.Second)
