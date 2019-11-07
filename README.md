@@ -28,21 +28,26 @@ rake run
 # Install dependencies
 bundle install
 
-# Clean binary cache (optional)
-rake clean_binary
+# Install dependencies (for `rubyc`)
+sudo rake 'rubyc_install_dependencies[linux,amd64]'
+# or
+sudo rake 'rubyc_install_dependencies[darwin,amd64]'
+
+# Clean files (from `rubyc`, optional)
+rake rubyc_clean
 
 # Build
 rake
 
-# Build binary
-rake 'build_binary[linux,amd64]'
+# Build binary (with `rubyc`)
+rake 'rubyc_build_binary[linux,amd64]'
 # or
-rake 'build_binary[darwin,amd64]'
+rake 'rubyc_build_binary[darwin,amd64]'
 
-# Install binary
-sudo rake 'install_binary[linux,amd64]'
+# Install binary (from `rubyc`)
+sudo rake 'rubyc_install_binary[linux,amd64]'
 # or
-sudo rake 'install_binary[darwin,amd64]'
+sudo rake 'rubyc_install_binary[darwin,amd64]'
 
 # Run
 math-rb-server

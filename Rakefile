@@ -1,5 +1,8 @@
-require 'fileutils'
 require 'rubygems'
+require 'ptools'
+require 'os'
+require 'open-uri'
+require 'zlib'
 
 PROTO_DIR = File.join('src', 'svc', 'proto')
 PROTO_FILE = 'mather.proto'
@@ -17,15 +20,45 @@ VENDOR_DIR = 'vendor/bundle'
 RUBYC_DIR = '/tmp/rubyc'
 INSTALL_LOCATION = File.join('/usr', 'local', 'bin', EXE_FILE)
 
-task default: %w[build_protoc]
+task default: %w[protoc_build]
 
-task :build_protoc do
+task :rubyc_install_dependencies, %i[platform architecture] do |tasks, args|
+  sh 'yum install -y squashfs-tools' if File.which('yum')
+  sh 'apt-get install -y squashfs-tools' if File.which('apt')
+  sh 'brew install squashfs-tools' if File.which('brew')
+
+  if (OS.linux?)
+    download =
+      if OS.linux?
+        open(
+          'https://github.com/kontena/ruby-packer/releases/download/2.6.0-0.6.0/rubyc-2.6.0-0.6.0-linux-amd64.gz'
+        )
+      else
+        OS.mac &&
+          open(
+            'https://github.com/kontena/ruby-packer/releases/download/2.6.0-0.6.0/rubyc-2.6.0-0.6.0-osx-amd64.gz'
+          )
+      end
+    gz = Zlib::GzipReader.new(download)
+    TARGET_FILE =
+      File.join(
+        '/usr',
+        'local',
+        'bin',
+        "rubyc-#{args[:platform]}-#{args[:architecture]}"
+      )
+    IO.copy_stream(gz, TARGET_FILE)
+    FileUtils.chmod('+x', TARGET_FILE)
+  end
+end
+
+task :protoc_build do
   Dir.chdir(PROTO_DIR) do
     sh "grpc_tools_ruby_protoc --ruby_out=. --grpc_out=. #{PROTO_FILE}"
   end
 end
 
-task :build_binary, %i[platform architecture] do |tasks, args|
+task :rubyc_build_binary, %i[platform architecture] do |tasks, args|
   TARGET_FILE = "#{EXE_FILE}-#{args[:platform]}-#{args[:architecture]}"
   FileUtils.mkdir_p(BUILD_DIR)
   FileUtils.mkdir_p(BIN_DIR)
@@ -63,20 +96,27 @@ task :build_binary, %i[platform architecture] do |tasks, args|
 
     File.write(GEMFILE_LOCK, lock_file_without_bundled_with)
 
-    sh "rubyc -o #{File.join('..', BIN_DIR, TARGET_FILE)} #{
+    sh "#{
+         File.join(
+           '/usr',
+           'local',
+           'bin',
+           "rubyc-#{args[:platform]}-#{args[:architecture]}"
+         )
+       } -o #{File.join('..', BIN_DIR, TARGET_FILE)} #{
          File.join(EXE_DIR, EXE_FILE)
        }"
   end
 end
 
-task :install_binary, %i[platform architecture] do |tasks, args|
+task :rubyc_install_binary, %i[platform architecture] do |tasks, args|
   TARGET_FILE = "#{EXE_FILE}-#{args[:platform]}-#{args[:architecture]}"
   FileUtils.chmod('+x', File.join(BIN_DIR, TARGET_FILE))
 
   FileUtils.copy_file(File.join(BIN_DIR, TARGET_FILE), INSTALL_LOCATION)
 end
 
-task :clean_binary do
+task :rubyc_clean do
   FileUtils.rm_rf(BIN_DIR)
   FileUtils.rm_rf(BUILD_DIR)
   FileUtils.rm_rf(RUBYC_DIR)
