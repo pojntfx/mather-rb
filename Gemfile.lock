@@ -2,11 +2,14 @@ PATH
   remote: .
   specs:
     mather-rb (1.0.0)
-      grpc
+      commander (~> 4.4)
+      grpc (~> 1.25)
 
 GEM
   remote: https://rubygems.org/
   specs:
+    commander (4.4.7)
+      highline (~> 2.0.0)
     google-protobuf (3.10.1)
     googleapis-common-protos-types (1.0.4)
       google-protobuf (~> 3.0)
@@ -14,6 +17,7 @@ GEM
       google-protobuf (~> 3.8)
       googleapis-common-protos-types (~> 1.0)
     grpc-tools (1.25.0)
+    highline (2.0.3)
     rake (10.5.0)
 
 PLATFORMS

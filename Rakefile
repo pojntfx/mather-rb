@@ -1,4 +1,3 @@
-require 'bundler/gem_tasks'
 require 'fileutils'
 
 task default: %w[build_protoc]
@@ -35,5 +34,5 @@ task :clean do
 end
 
 task :run do
-  ruby File.join('exe', 'mather-rb-server')
+  ruby File.join('exe', 'mather-rb-server start')
 end

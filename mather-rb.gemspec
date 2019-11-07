@@ -27,7 +27,8 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = %w[src]
 
-  spec.add_dependency 'grpc'
+  spec.add_dependency 'grpc', '~> 1.25'
+  spec.add_dependency 'commander', '~> 4.4'
 
   spec.add_development_dependency 'bundler', '~> 2.0'
   spec.add_development_dependency 'rake', '~> 10.0'

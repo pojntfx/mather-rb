@@ -16,10 +16,10 @@ A simple math gRPC microservice, for the purpose of learning and evaluating Ruby
 bundle install
 
 # Build
-bundle exec rake
+rake
 
 # Run
-bundle exec rake run
+rake run
 ```
 
 ### From Source (Binary)
@@ -29,17 +29,17 @@ bundle exec rake run
 bundle install
 
 # Build
-bundle exec rake
+rake
 
 # Build binary
-bundle exec rake 'build_binary[linux,amd64]'
+rake 'build_binary[linux,amd64]'
 # or
-bundle exec rake 'build_binary[darwin,amd64]'
+rake 'build_binary[darwin,amd64]'
 
 # Install binary
-sudo bundle exec rake 'install_binary[linux,amd64]'
+sudo rake 'install_binary[linux,amd64]'
 # or
-sudo bundle exec rake 'install_binary[darwin,amd64]'
+sudo rake 'install_binary[darwin,amd64]'
 
 # Run
 math-rb-server
