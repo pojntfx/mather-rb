@@ -50,7 +50,7 @@ sudo rake 'rubyc_install_binary[linux,amd64]'
 sudo rake 'rubyc_install_binary[darwin,amd64]'
 
 # Run
-math-rb-server
+mather-rb-server start
 ```
 
 ## License

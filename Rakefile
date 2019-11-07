@@ -72,12 +72,18 @@ task :rubyc_build_binary, %i[platform architecture] do |tasks, args|
       }
     end
 
-  FileUtils.rm_rf(File.join(BUILD_DIR, VENDOR_DIR))
+  if File.exist?(File.join(BUILD_DIR, VENDOR_DIR))
+    FileUtils.rm_rf(File.join(BUILD_DIR, VENDOR_DIR))
+  end
   SRC_DIRS.each do |f|
-    FileUtils.rm_rf(File.join(BUILD_DIR, f))
+    if File.exist?(File.join(BUILD_DIR, f))
+      FileUtils.rm_rf(File.join(BUILD_DIR, f))
+    end
     FileUtils.cp_r(f, BUILD_DIR)
   end
-  File.delete(File.join(BUILD_DIR, GEMFILE_LOCK))
+  if File.exist?(File.join(BUILD_DIR, GEMFILE_LOCK))
+    File.delete(File.join(BUILD_DIR, GEMFILE_LOCK))
+  end
 
   File.write(
     File.join(BUILD_DIR, GEMFILE),
@@ -117,10 +123,10 @@ task :rubyc_install_binary, %i[platform architecture] do |tasks, args|
 end
 
 task :rubyc_clean do
-  FileUtils.rm_rf(BIN_DIR)
-  FileUtils.rm_rf(BUILD_DIR)
-  FileUtils.rm_rf(RUBYC_DIR)
-  PROTO_OUTPUT_FILES.each { |file| File.delete(file) }
+  FileUtils.rm_rf(BIN_DIR) if File.exists?(BIN_DIR)
+  FileUtils.rm_rf(BUILD_DIR) if File.exist?(BUILD_DIR)
+  FileUtils.rm_rf(RUBYC_DIR) if File.exist?(RUBYC_DIR)
+  PROTO_OUTPUT_FILES.each { |file| File.delete(file) if File.exists?(file) }
 end
 
 task :run do
