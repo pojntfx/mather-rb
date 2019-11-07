@@ -7,12 +7,36 @@ require 'rubygems'
 require 'bundler/setup'
 require 'grpc'
 require 'mather'
+require 'commander'
 
-PORT = ':30000'
+class MatherServer
+  include Commander::Methods
 
-s = GRPC::RpcServer.new
-s.add_http2_port("0.0.0.0#{PORT}", :this_port_is_insecure)
-s.handle(MatherService)
+  def run
+    program :name, 'Mather Server (in Ruby)'
+    program :version, '1.0.0'
+    program :description,
+            'A simple math gRPC microservice, for the purpose of learning and evaluating Ruby and gRPC.'
 
-puts "server started on port #{PORT}"
-s.run_till_terminated_or_interrupted([1, 'int', 'SIGQUIT'])
+    command :start do |c|
+      c.syntax = 'mather-rb-server start'
+      c.description = 'Starts the server'
+      c.option '--port PORT', String, "Server's port (by default :30000)"
+
+      c.action do |args, options|
+        port = options.port || ':30000'
+
+        s = GRPC::RpcServer.new
+        s.add_http2_port("0.0.0.0#{port}", :this_port_is_insecure)
+        s.handle(MatherService)
+
+        puts "Server started on port #{port}"
+        s.run_till_terminated_or_interrupted([1, 'int', 'SIGQUIT'])
+      end
+    end
+
+    run!
+  end
+end
+
+MatherServer.new.run
