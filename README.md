@@ -28,6 +28,9 @@ rake run
 # Install dependencies
 bundle install
 
+# Clean binary cache (optional)
+rake clean_binary
+
 # Build
 rake
 
