@@ -1,6 +1,8 @@
-# Felicitas Pojtinger's `mather-rb`
+# Mather Server (in Ruby)
 
 A simple math gRPC microservice, for the purpose of learning and evaluating Ruby and gRPC.
+
+[![Build Status](https://travis-ci.com/pojntfx/mather-rb.svg?branch=master)](https://travis-ci.com/pojntfx/mather-rb)
 
 ## Features
 
@@ -8,6 +10,10 @@ A simple math gRPC microservice, for the purpose of learning and evaluating Ruby
 - Subtract numbers
 
 ## Usage
+
+### From Prebuilt Binaries
+
+Prebuilt binaries are available on the [releases page](https://github.com/pojntfx/mather-rb/releases/latest).
 
 ### From Source (Interpreter)
 
