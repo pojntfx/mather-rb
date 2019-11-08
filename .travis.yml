@@ -14,13 +14,13 @@ addons:
 
 script:
         - gem install bundler:2.0.2
-        - bundle install
-        - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo rake 'rubyc_install_dependencies[linux,amd64]'; fi
-        - if [ "$TRAVIS_OS_NAME" = "osx" ]; then sudo rake 'rubyc_install_dependencies[darwin,amd64]'; fi
-        - rake rubyc_clean
-        - rake
-        - if [ "$TRAVIS_OS_NAME" = "linux" ]; then rake 'rubyc_build_binary[linux,amd64]'; fi
-        - if [ "$TRAVIS_OS_NAME" = "osx" ]; then rake 'rubyc_build_binary[darwin,amd64]'; fi
+        - bundle install --path vendor/bundle
+        - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo `which bundle` exec rake 'rubyc_install_dependencies[linux,amd64]'; fi
+        - if [ "$TRAVIS_OS_NAME" = "osx" ]; then sudo `which bundle` exec rake 'rubyc_install_dependencies[darwin,amd64]'; fi
+        - bundle exec rake clean
+        - bundle exec rake
+        - if [ "$TRAVIS_OS_NAME" = "linux" ]; then bundle exec rake 'rubyc_build_binary[linux,amd64]'; fi
+        - if [ "$TRAVIS_OS_NAME" = "osx" ]; then bundle exec rake 'rubyc_build_binary[darwin,amd64]'; fi
 
 deploy:
         file:
