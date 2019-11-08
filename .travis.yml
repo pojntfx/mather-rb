@@ -11,8 +11,6 @@ addons:
                 update: true
                 packages:
                         - ruby-dev
-        homebrew:
-                update: true
 
 before_install:
         - sudo gem install bundler
