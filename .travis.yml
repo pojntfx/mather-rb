@@ -9,12 +9,16 @@ dist: bionic
 addons:
         apt:
                 update: true
+                packages:
+                        - ruby-dev
         homebrew:
                 update: true
 
 script:
-        - sudo gem install executable-hooks bundler:2.0.2
-        - sudo gem pristine --all
+        - sudo gem install bundler --version 2.0.2
+        - sudo gem pristine executable-hooks --version 1.6.0
+        - sudo gem pristine gem-wrappers --version 1.4.0
+        - sudo gem pristine nokogiri --version 1.10.4
         - bundle install --path vendor/bundle
         - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo `which bundle` exec rake 'rubyc_install_dependencies[linux,amd64]'; fi
         - if [ "$TRAVIS_OS_NAME" = "osx" ]; then sudo `which bundle` exec rake 'rubyc_install_dependencies[darwin,amd64]'; fi
