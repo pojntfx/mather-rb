@@ -122,7 +122,7 @@ task :rubyc_install_binary, %i[platform architecture] do |tasks, args|
   FileUtils.copy_file(File.join(BIN_DIR, TARGET_FILE), INSTALL_LOCATION)
 end
 
-task :rubyc_clean do
+task :clean do
   FileUtils.rm_rf(BIN_DIR) if File.exists?(BIN_DIR)
   FileUtils.rm_rf(BUILD_DIR) if File.exist?(BUILD_DIR)
   FileUtils.rm_rf(RUBYC_DIR) if File.exist?(RUBYC_DIR)
