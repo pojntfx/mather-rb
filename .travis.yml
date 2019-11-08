@@ -18,8 +18,10 @@ bundler_args: --path vendor/bundle
 
 script:
         - bundle pristine
-        - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo `which bundle` exec rake 'rubyc_install_dependencies[linux,amd64]'; fi
-        - if [ "$TRAVIS_OS_NAME" = "osx" ]; then sudo `which bundle` exec rake 'rubyc_install_dependencies[darwin,amd64]'; fi
+        - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo `which bundle` exec rake rubyc_install_dependencies; fi
+        - if [ "$TRAVIS_OS_NAME" = "osx" ]; then bundle exec rake rubyc_install_dependencies; fi
+        - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo `which bundle` exec rake 'rubyc_install_rubyc[linux,amd64]'; fi
+        - if [ "$TRAVIS_OS_NAME" = "osx" ]; then sudo `which bundle` exec rake 'rubyc_install_rubyc[darwin,amd64]'; fi
         - bundle exec rake clean
         - bundle exec rake
         - if [ "$TRAVIS_OS_NAME" = "linux" ]; then bundle exec rake 'rubyc_build_binary[linux,amd64]'; fi
