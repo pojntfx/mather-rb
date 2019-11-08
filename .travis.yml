@@ -13,8 +13,7 @@ addons:
                 update: true
 
 script:
-        - sudo gem install --user-install executable-hooks
-        - gem install bundler:2.0.2
+        - sudo gem install executable-hooks bundler:2.0.2
         - bundle install --path vendor/bundle
         - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo `which bundle` exec rake 'rubyc_install_dependencies[linux,amd64]'; fi
         - if [ "$TRAVIS_OS_NAME" = "osx" ]; then sudo `which bundle` exec rake 'rubyc_install_dependencies[darwin,amd64]'; fi
