@@ -94,6 +94,7 @@ task :rubyc_build_binary, %i[platform architecture] do |tasks, args|
 
   Dir.chdir(BUILD_DIR) do
     sh "bundle install --path #{VENDOR_DIR}"
+    sh "bundle lock --lockfile=#{GEMFILE_LOCK}"
 
     lock_file = File.read(GEMFILE_LOCK)
 
