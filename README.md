@@ -38,9 +38,11 @@ bundle exec rake run
 bundle install --path vendor/bundle
 
 # Install dependencies (for `rubyc`)
-sudo `which bundle` exec rake 'rubyc_install_dependencies[linux,amd64]'
+sudo `which bundle` exec rake rubyc_install_dependencies
+sudo `which bundle` exec rake 'rubyc_install_rubyc[linux,amd64]'
 # or
-sudo `which bundle` exec rake 'rubyc_install_dependencies[darwin,amd64]'
+bundle exec rake rubyc_install_dependencies
+sudo `which bundle` exec rake 'rubyc_install_rubyc[darwin,amd64]'
 
 # Clean (optional)
 bundle exec rake clean

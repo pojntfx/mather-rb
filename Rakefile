@@ -22,11 +22,13 @@ INSTALL_LOCATION = File.join('/usr', 'local', 'bin', EXE_FILE)
 
 task default: %w[protoc_build]
 
-task :rubyc_install_dependencies, %i[platform architecture] do |tasks, args|
+task :rubyc_install_dependencies do
   sh 'yum install -y squashfs-tools' if File.which('yum')
   sh 'apt-get install -y squashfs-tools' if File.which('apt-get')
   sh 'brew install squashfs-tools' if File.which('brew')
+end
 
+task :rubyc_install_rubyc, %i[platform architecture] do |tasks, args|
   if (OS.linux?)
     download =
       if OS.linux?
@@ -92,10 +94,11 @@ task :rubyc_build_binary, %i[platform architecture] do |tasks, args|
     end
   )
 
-  Dir.chdir(BUILD_DIR) do
-    sh "bundle install --path #{VENDOR_DIR}"
-    sh "bundle lock --update --lockfile=#{GEMFILE_LOCK}"
+  Bundler.with_clean_env do
+    system "cd #{BUILD_DIR} && bundle install --path #{VENDOR_DIR}"
+  end
 
+  Dir.chdir(BUILD_DIR) do
     lock_file = File.read(GEMFILE_LOCK)
 
     lock_file_without_bundled_with =
