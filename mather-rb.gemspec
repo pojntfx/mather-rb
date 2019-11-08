@@ -1,14 +1,10 @@
-lib = File.expand_path('src', __dir__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-
 Gem::Specification.new do |spec|
   spec.name = 'mather-rb'
-  spec.version = '1.0.0'
+  spec.version = '0.0.1'
   spec.authors = ['Felix Pojtinger']
   spec.email = %w[felix@pojtinger.com]
 
-  spec.summary =
-    'A simple math gRPC microservice, for the purpose of learning and evaluating Ruby and gRPC.'
+  spec.summary = 'Simple gRPC microservice that does math.'
   spec.homepage = 'https://pojntfx.github.io/mather-rb/'
   spec.license = 'AGPL-3.0'
 
