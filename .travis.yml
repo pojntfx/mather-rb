@@ -16,9 +16,9 @@ addons:
 
 before_install:
         - sudo gem install bundler
+bundler_args: --path vendor/bundle
 
 script:
-        - bundle install --path vendor/bundle
         - bundle pristine
         - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo `which bundle` exec rake 'rubyc_install_dependencies[linux,amd64]'; fi
         - if [ "$TRAVIS_OS_NAME" = "osx" ]; then sudo `which bundle` exec rake 'rubyc_install_dependencies[darwin,amd64]'; fi
