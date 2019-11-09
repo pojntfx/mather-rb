@@ -27,27 +27,37 @@ script:
         - mather-rb-server --version
         - sudo rm `which mather-rb-server`
 
+_test_rubyc_script: &_test_rubyc_script
+        script:
+                - bundle pristine
+                - bundle exec rake clean
+                - bundle exec rake
+                - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo `which bundle` exec rake rubyc_install_dependencies; fi
+                - if [ "$TRAVIS_OS_NAME" = "osx" ]; then bundle exec rake rubyc_install_dependencies; fi
+                - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo `which bundle` exec rake 'rubyc_install_rubyc[linux,amd64]'; fi
+                - if [ "$TRAVIS_OS_NAME" = "osx" ]; then sudo `which bundle` exec rake 'rubyc_install_rubyc[darwin,amd64]'; fi
+                - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo dd if=/dev/zero of=/.swapfile bs=4096 count=1M; fi
+                - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo mkswap /.swapfile; fi
+                - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo swapon /.swapfile; fi
+                - if [ "$TRAVIS_OS_NAME" = "linux" ]; then bundle exec rake 'rubyc_build_binary[linux,amd64]'; fi
+                - if [ "$TRAVIS_OS_NAME" = "osx" ]; then bundle exec rake 'rubyc_build_binary[darwin,amd64]'; fi
+                - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo `which bundle` exec rake 'rubyc_install_binary[linux,amd64]'; fi
+                - if [ "$TRAVIS_OS_NAME" = "osx" ]; then sudo `which bundle` exec rake 'rubyc_install_binary[darwin,amd64]'; fi
+                - mather-rb-server --version
+                - sudo rm `which mather-rb-server`
+
 jobs:
         include:
-                - stage: test-rubyc
-                  name: Test (with `rubyc`)
-                  script:
-                          - bundle pristine
-                          - bundle exec rake clean
-                          - bundle exec rake
-                          - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo `which bundle` exec rake rubyc_install_dependencies; fi
-                          - if [ "$TRAVIS_OS_NAME" = "osx" ]; then bundle exec rake rubyc_install_dependencies; fi
-                          - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo `which bundle` exec rake 'rubyc_install_rubyc[linux,amd64]'; fi
-                          - if [ "$TRAVIS_OS_NAME" = "osx" ]; then sudo `which bundle` exec rake 'rubyc_install_rubyc[darwin,amd64]'; fi
-                          - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo dd if=/dev/zero of=/.swapfile bs=4096 count=1M; fi
-                          - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo mkswap /.swapfile; fi
-                          - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo swapon /.swapfile; fi
-                          - if [ "$TRAVIS_OS_NAME" = "linux" ]; then bundle exec rake 'rubyc_build_binary[linux,amd64]'; fi
-                          - if [ "$TRAVIS_OS_NAME" = "osx" ]; then bundle exec rake 'rubyc_build_binary[darwin,amd64]'; fi
-                          - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo `which bundle` exec rake 'rubyc_install_binary[linux,amd64]'; fi
-                          - if [ "$TRAVIS_OS_NAME" = "osx" ]; then sudo `which bundle` exec rake 'rubyc_install_binary[darwin,amd64]'; fi
-                          - mather-rb-server --version
-                          - sudo rm `which mather-rb-server`
+                - <<: *_test_rubyc_script
+                  stage: test-rubyc
+                  name: Test (with `rubyc`) on Linux
+                  os: linux
+                  dist: bionic
+                - <<: *_test_rubyc_script
+                  stage: test-rubyc
+                  name: Test (with `rubyc`) on Darwin
+                  os: osx
+                  osx_image: xcode11.2
 
 deploy:
         - provider: releases
