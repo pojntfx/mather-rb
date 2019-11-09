@@ -4,7 +4,7 @@ Gem::Specification.new do |spec|
   spec.authors = ['Felix Pojtinger']
   spec.email = %w[felix@pojtinger.com]
 
-  spec.summary = 'Simple gRPC microservice that does math.'
+  spec.summary = 'Simple Ruby gRPC microservice that does math.'
   spec.homepage = 'https://pojntfx.github.io/mather-rb/'
   spec.license = 'AGPL-3.0'
 
