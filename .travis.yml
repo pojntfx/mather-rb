@@ -69,7 +69,7 @@ deploy:
                   repo: pojntfx/mather-rb
                   all_branches: true
                   tags: true
-                  condition: $TRAVIS_OS_NAME = linux
+                  condition: $TRAVIS_OS_NAME = linux && $TRAVIS_TAG =~ ^v[0-9]+\.[0-9]+\.[0-9]+
           skip_cleanup: true
         - provider: releases
           file:
