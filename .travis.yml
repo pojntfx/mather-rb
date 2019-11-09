@@ -14,15 +14,13 @@ addons:
                 packages:
                         - ruby-dev
 
-before_install:
-        - sudo gem install bundler
-bundler_args: --path vendor/bundle
-
-jobs:
+matrix:
         include:
                 - stage: build
                   name: Build and Test
                   script:
+                          - sudo gem install bundler
+                          - bundle install --path vendor/bundle
                           - bundle pristine
                           - bundle exec rake clean
                           - bundle exec rake
@@ -33,6 +31,8 @@ jobs:
                 - stage: build-rubyc
                   name: Build and Test (with `rubyc`)
                   script:
+                          - sudo gem install bundler
+                          - bundle install --path vendor/bundle
                           - bundle pristine
                           - bundle exec rake clean
                           - bundle exec rake
