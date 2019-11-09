@@ -10,3 +10,4 @@
 /.bin/
 /.build/
 /vendor/
+/mather-rb-*.gem
