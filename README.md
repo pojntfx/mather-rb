@@ -15,6 +15,16 @@ Simple gRPC microservice that does math.
 
 Prebuilt binaries are available on the [releases page](https://github.com/pojntfx/mather-rb/releases/latest).
 
+### From RubyGems
+
+```
+# Install
+gem install mather-rb
+
+# Run
+mather-rb-server start
+```
+
 ### From Source (Interpreter)
 
 ```bash
