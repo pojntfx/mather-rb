@@ -35,7 +35,7 @@ script:
         - mather-rb-server --version
         - sudo rm `which mather-rb-server`
         - gem build mather-rb.gemspec
-        - gem install mather-rb-*.gem
+        - sudo gem install mather-rb-*.gem
         - mather-rb-server --version
         - sudo rm `which mather-rb-server`
 
