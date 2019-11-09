@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name = 'mather-rb'
-  spec.version = '0.0.3'
+  spec.version = '0.0.4'
   spec.authors = ['Felix Pojtinger']
   spec.email = %w[felix@pojtinger.com]
 
