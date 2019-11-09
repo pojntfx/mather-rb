@@ -1,6 +1,6 @@
 # Mather Service (in Ruby)
 
-Simple gRPC microservice that does math.
+Simple Ruby gRPC microservice that does math.
 
 [![Build Status](https://travis-ci.com/pojntfx/mather-rb.svg?branch=master)](https://travis-ci.com/pojntfx/mather-rb)
 
