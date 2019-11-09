@@ -29,32 +29,30 @@ task :rubyc_install_dependencies do
 end
 
 task :rubyc_install_rubyc, %i[platform architecture] do |tasks, args|
-  if (OS.linux?)
-    download = {}
-    if OS.linux?
-      puts 'Downloading rubyc for Linux ...'
-      download =
-        open(
-          'https://github.com/kontena/ruby-packer/releases/download/2.6.0-0.6.0/rubyc-2.6.0-0.6.0-linux-amd64.gz'
-        )
-    else
-      puts 'Downloading rubyc for Darwin ...'
-      download =
-        open(
-          'https://github.com/kontena/ruby-packer/releases/download/2.6.0-0.6.0/rubyc-2.6.0-0.6.0-osx-amd64.gz'
-        )
-    end
-    gz = Zlib::GzipReader.new(download)
-    TARGET_FILE =
-      File.join(
-        '/usr',
-        'local',
-        'bin',
-        "rubyc-#{args[:platform]}-#{args[:architecture]}"
+  download = {}
+  if OS.linux?
+    puts 'Downloading rubyc for Linux ...'
+    download =
+      open(
+        'https://github.com/kontena/ruby-packer/releases/download/2.6.0-0.6.0/rubyc-2.6.0-0.6.0-linux-amd64.gz'
       )
-    IO.copy_stream(gz, TARGET_FILE)
-    FileUtils.chmod('+x', TARGET_FILE)
+  else
+    puts 'Downloading rubyc for Darwin ...'
+    download =
+      open(
+        'https://github.com/kontena/ruby-packer/releases/download/2.6.0-0.6.0/rubyc-2.6.0-0.6.0-osx-amd64.gz'
+      )
   end
+  gz = Zlib::GzipReader.new(download)
+  TARGET_FILE =
+    File.join(
+      '/usr',
+      'local',
+      'bin',
+      "rubyc-#{args[:platform]}-#{args[:architecture]}"
+    )
+  IO.copy_stream(gz, TARGET_FILE)
+  FileUtils.chmod('+x', TARGET_FILE)
 end
 
 task :protoc_build do
