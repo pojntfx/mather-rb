@@ -4,15 +4,17 @@ require 'os'
 require 'open-uri'
 require 'zlib'
 
-PROTO_DIR = File.join('src', 'svc', 'proto')
+PROTO_DIR = File.join('src', 'proto')
 PROTO_FILE = 'mather.proto'
-PROTO_OUTPUT_FILES = Dir.glob(File.join('src', 'svc', 'proto', '*pb.*'))
+PROTO_OUTPUT_DIR = '.generated'
+PROTO_OUTPUT_FILES =
+  Dir.glob(File.join('src', 'proto', PROTO_OUTPUT_DIR, '*pb.*'))
 BUILD_DIR = '.build'
 BIN_DIR = '.bin'
 GEMSPEC_FILE = 'mather-rb.gemspec'
 GEMFILE = 'Gemfile'
 RUBYGEMS_ORG = 'https://rubygems.org'
-EXE_DIR = 'exe'
+EXE_DIR = File.join('cmd', 'sever')
 SRC_DIRS = [EXE_DIR, 'src']
 GEMFILE_LOCK = 'Gemfile.lock'
 EXE_FILE = 'mather-rb-server'
@@ -56,8 +58,11 @@ task :rubyc_install_rubyc, %i[platform architecture] do |tasks, args|
 end
 
 task :protoc_build do
+  FileUtils.mkdir_p(File.join(PROTO_DIR, PROTO_OUTPUT_DIR))
   Dir.chdir(PROTO_DIR) do
-    sh "grpc_tools_ruby_protoc --ruby_out=. --grpc_out=. #{PROTO_FILE}"
+    sh "grpc_tools_ruby_protoc --ruby_out=#{PROTO_OUTPUT_DIR} --grpc_out=#{
+         PROTO_OUTPUT_DIR
+       } #{PROTO_FILE}"
   end
 end
 

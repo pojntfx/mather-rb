@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name = 'mather-rb'
-  spec.version = '0.0.4'
+  spec.version = '0.0.5'
   spec.authors = ['Felicitas Pojtinger']
   spec.email = %w[felicitas@pojtinger.com]
 
@@ -17,7 +17,7 @@ Gem::Specification.new do |spec|
     Dir.glob('{src,exe}/**/*', File::FNM_DOTMATCH).reject do |f|
       File.directory?(f)
     end
-  spec.bindir = 'exe'
+  spec.bindir = File.join('cmd', 'server')
   spec.executables = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = %w[src]
 
