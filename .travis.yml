@@ -1,6 +1,7 @@
 language: ruby
 rvm:
         - 2.6
+
 os:
         - linux
         - osx
@@ -41,33 +42,38 @@ jobs:
                           - if [ "$TRAVIS_OS_NAME" = "osx" ]; then bundle exec rake 'rubyc_build_binary[darwin,amd64]'; fi
                 - stage: test
                   script:
-                          - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo `which bundle` exec rake 'rubyc_install_binary[linux,amd64]'; fi
-                          - if [ "$TRAVIS_OS_NAME" = "osx" ]; then sudo `which bundle` exec rake 'rubyc_install_binary[darwin,amd64]'; fi
-                          - mather-rb-server --version
-                          - sudo rm `which mather-rb-server`
                           - gem build mather-rb.gemspec
                           - sudo gem install mather-rb-*.gem
                           - mather-rb-server --version
                           - sudo rm `which mather-rb-server`
-
-deploy:
-        - provider: releases
-          file:
-                  - ./.bin/mather-rb-server-linux-amd64
-                  - ./.bin/mather-rb-server-darwin-amd64
-          api_key:
-                  secure: o2NMONAp8+tb6h8c1Y5q98REUDMxedjbY2dbP9wksKtnKEaFDW1A3lnc00R/ilvaWoZAa0NyeIQl+lTDe4KkTIto9pCCNrnxp2TawdXyf1pkDoP54R7W64xOr/jAYDOBtncm3lsKORJWjCpKxroOvv350Te93M5c5IR1C7SH3ro59Vx6UUiq6FGYCcQywevtxizrlZB65BWw4vgjCpSRVaAnXn1ENuJvJxGIibukMmLNomIAZMzbiddzZMcqNBraCOxZ6ntFz8J3IlgdJUia7tNB2hHvgtYNC/SZ5QSX1Sd2jwIEJDXAAPAhrPzHHNdzPm/SwJX7GqaVdkRpteAELAsBeBA0cyZoSOt+DrgXJ6F6gWM1KzSfGwLDAnJmJFvVoJIXBBaNWYuXhjUogOJ8suB0CMn69wAFMxp0vFIFlhom7RrTN6bzfdz4vlkAO65dQBDLhw6d0tZsaWROKlgf4AW/sJ2AFKoxtXfSyqXYCddWYR4HWNh/Naq5eaF5uYRD1lpKviwBynhmQmU6EQgCUk5H4oDs1s+pBdMlNRFrToElBcw1gqh3teZr2+mn+/Kui8ckgy1rtfMO44t5F1gp34H0/kAzt4AS/mmMrsBv2wvgypSTFyStvMGdYyWce5ZDaTybq9i/CgJsEq4wRPj41/RPdmEjG5gUBEdSJ3Z/eSo=
-          on:
-                  repo: pojntfx/mather-rb
-                  all_branches: true
-          skip_cleanup: true
-        - provider: rubygems
-          gem: mather-rb
-          gemspec: mather-rb.gemspec
-          api_key:
-                  secure: Y/GTEGLGrgpn8Jb1LwZVbDRj3xyqo3sAyXvJKm+Tf9Cmht71Leb2smylNtaZno6aRTmp70Y1TJ9uhmQ7euGFMWONml7NCUa8w8VeRJpCQSXhKtKIPtNRzJfyC+wGhpRyiHcgkRi9fRFA68I3O1VTTZ7e046OhYENTQ2KLEI1Ne6hC/3D7lCwNwjHelOXsLC+eI/D05K8BqRys94llxicsx98mG6C4IQwPdDhXhlCUeYZt7Pbs2r4NexnlxP0E1v95eI9ul1Zx8Yk6utJYzjj5mSWLRRLdYB6dT/00NA792g3v3Q+NJ0rOB3nkoAmgy4umaZC9MiX518Pr5yhiPxpAYrX6gnbeiV6mbwlO1GtBMbSq+nkixLs5Tcg9ad77pBjj1/PxY32ANKAqt7lBs8/MEksOd1xUIDDlmUJCZ9RQEd70y6RfbsguWWjrxvtK9+CDEoFuzVQPqDdyOrtWzmz0DBMRBq0ch/VnXM+DQn9sU6ouhJvnvwXglS3FDypCOlXzepzRgbxMOO6sNe1lrwjhetm/3HFnVNRDzsk1Xs1NaX6w8/FS+bThbJ4orLw2+2LwOaEZmD2Rvk3q6imnQvQkTw3UUMtYgdK/11dFgGsW+ZuFGOPdFPvgsb/cRFRG5r2kZv9eW7niXDofDap0DXvcHv3Vq8cWZLfJ+uVFW3RbJY=
-          on:
-                  repo: pojntfx/mather-rb
-                  all_branches: true
-                  tags: true
-          skip_cleanup: true
+                - stage: test-binary
+                  script:
+                          - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo `which bundle` exec rake 'rubyc_install_binary[linux,amd64]'; fi
+                          - if [ "$TRAVIS_OS_NAME" = "osx" ]; then sudo `which bundle` exec rake 'rubyc_install_binary[darwin,amd64]'; fi
+                          - mather-rb-server --version
+                          - sudo rm `which mather-rb-server`
+                - stage: deploy-github-releases
+                  deploy:
+                          provider: releases
+                          file:
+                                  - ./.bin/mather-rb-server-linux-amd64
+                                  - ./.bin/mather-rb-server-darwin-amd64
+                          api_key:
+                                  secure: o2NMONAp8+tb6h8c1Y5q98REUDMxedjbY2dbP9wksKtnKEaFDW1A3lnc00R/ilvaWoZAa0NyeIQl+lTDe4KkTIto9pCCNrnxp2TawdXyf1pkDoP54R7W64xOr/jAYDOBtncm3lsKORJWjCpKxroOvv350Te93M5c5IR1C7SH3ro59Vx6UUiq6FGYCcQywevtxizrlZB65BWw4vgjCpSRVaAnXn1ENuJvJxGIibukMmLNomIAZMzbiddzZMcqNBraCOxZ6ntFz8J3IlgdJUia7tNB2hHvgtYNC/SZ5QSX1Sd2jwIEJDXAAPAhrPzHHNdzPm/SwJX7GqaVdkRpteAELAsBeBA0cyZoSOt+DrgXJ6F6gWM1KzSfGwLDAnJmJFvVoJIXBBaNWYuXhjUogOJ8suB0CMn69wAFMxp0vFIFlhom7RrTN6bzfdz4vlkAO65dQBDLhw6d0tZsaWROKlgf4AW/sJ2AFKoxtXfSyqXYCddWYR4HWNh/Naq5eaF5uYRD1lpKviwBynhmQmU6EQgCUk5H4oDs1s+pBdMlNRFrToElBcw1gqh3teZr2+mn+/Kui8ckgy1rtfMO44t5F1gp34H0/kAzt4AS/mmMrsBv2wvgypSTFyStvMGdYyWce5ZDaTybq9i/CgJsEq4wRPj41/RPdmEjG5gUBEdSJ3Z/eSo=
+                          on:
+                                  repo: pojntfx/mather-rb
+                                  all_branches: true
+                          skip_cleanup: true
+                - stage: deploy-rubygems
+                  deploy:
+                          provider: rubygems
+                          gem: mather-rb
+                          gemspec: mather-rb.gemspec
+                          api_key:
+                                  secure: Y/GTEGLGrgpn8Jb1LwZVbDRj3xyqo3sAyXvJKm+Tf9Cmht71Leb2smylNtaZno6aRTmp70Y1TJ9uhmQ7euGFMWONml7NCUa8w8VeRJpCQSXhKtKIPtNRzJfyC+wGhpRyiHcgkRi9fRFA68I3O1VTTZ7e046OhYENTQ2KLEI1Ne6hC/3D7lCwNwjHelOXsLC+eI/D05K8BqRys94llxicsx98mG6C4IQwPdDhXhlCUeYZt7Pbs2r4NexnlxP0E1v95eI9ul1Zx8Yk6utJYzjj5mSWLRRLdYB6dT/00NA792g3v3Q+NJ0rOB3nkoAmgy4umaZC9MiX518Pr5yhiPxpAYrX6gnbeiV6mbwlO1GtBMbSq+nkixLs5Tcg9ad77pBjj1/PxY32ANKAqt7lBs8/MEksOd1xUIDDlmUJCZ9RQEd70y6RfbsguWWjrxvtK9+CDEoFuzVQPqDdyOrtWzmz0DBMRBq0ch/VnXM+DQn9sU6ouhJvnvwXglS3FDypCOlXzepzRgbxMOO6sNe1lrwjhetm/3HFnVNRDzsk1Xs1NaX6w8/FS+bThbJ4orLw2+2LwOaEZmD2Rvk3q6imnQvQkTw3UUMtYgdK/11dFgGsW+ZuFGOPdFPvgsb/cRFRG5r2kZv9eW7niXDofDap0DXvcHv3Vq8cWZLfJ+uVFW3RbJY=
+                          on:
+                                  repo: pojntfx/mather-rb
+                                  all_branches: true
+                                  tags: true
+                                  condition: $TRAVIS_OS_NAME = linux
+                          skip_cleanup: true
