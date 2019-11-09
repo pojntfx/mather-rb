@@ -30,17 +30,20 @@ end
 
 task :rubyc_install_rubyc, %i[platform architecture] do |tasks, args|
   if (OS.linux?)
-    download =
-      if OS.linux?
+    download = {}
+    if OS.linux?
+      puts 'Downloading rubyc for Linux ...'
+      download =
         open(
           'https://github.com/kontena/ruby-packer/releases/download/2.6.0-0.6.0/rubyc-2.6.0-0.6.0-linux-amd64.gz'
         )
-      else
-        OS.mac &&
-          open(
-            'https://github.com/kontena/ruby-packer/releases/download/2.6.0-0.6.0/rubyc-2.6.0-0.6.0-osx-amd64.gz'
-          )
-      end
+    else
+      puts 'Downloading rubyc for Darwin ...'
+      download =
+        open(
+          'https://github.com/kontena/ruby-packer/releases/download/2.6.0-0.6.0/rubyc-2.6.0-0.6.0-osx-amd64.gz'
+        )
+    end
     gz = Zlib::GzipReader.new(download)
     TARGET_FILE =
       File.join(
