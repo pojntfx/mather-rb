@@ -25,7 +25,7 @@ task default: %w[protoc_build]
 task :rubyc_install_dependencies do
   sh 'yum install -y squashfs-tools' if File.which('yum')
   sh 'apt-get install -y squashfs-tools' if File.which('apt-get')
-  sh 'brew install squashfs-tools' if File.which('brew')
+  sh 'brew install squashfs' if File.which('brew')
 end
 
 task :rubyc_install_rubyc, %i[platform architecture] do |tasks, args|
