@@ -58,3 +58,4 @@ deploy:
           on:
                   repo: pojntfx/mather-rb
                   all_branches: true
+          skip_cleanup: true
