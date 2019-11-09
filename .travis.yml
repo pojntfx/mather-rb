@@ -60,16 +60,6 @@ jobs:
                   osx_image: xcode11.2
 
 deploy:
-        - provider: releases
-          file:
-                  - ./.bin/mather-rb-server-linux-amd64
-                  - ./.bin/mather-rb-server-darwin-amd64
-          api_key:
-                  secure: o2NMONAp8+tb6h8c1Y5q98REUDMxedjbY2dbP9wksKtnKEaFDW1A3lnc00R/ilvaWoZAa0NyeIQl+lTDe4KkTIto9pCCNrnxp2TawdXyf1pkDoP54R7W64xOr/jAYDOBtncm3lsKORJWjCpKxroOvv350Te93M5c5IR1C7SH3ro59Vx6UUiq6FGYCcQywevtxizrlZB65BWw4vgjCpSRVaAnXn1ENuJvJxGIibukMmLNomIAZMzbiddzZMcqNBraCOxZ6ntFz8J3IlgdJUia7tNB2hHvgtYNC/SZ5QSX1Sd2jwIEJDXAAPAhrPzHHNdzPm/SwJX7GqaVdkRpteAELAsBeBA0cyZoSOt+DrgXJ6F6gWM1KzSfGwLDAnJmJFvVoJIXBBaNWYuXhjUogOJ8suB0CMn69wAFMxp0vFIFlhom7RrTN6bzfdz4vlkAO65dQBDLhw6d0tZsaWROKlgf4AW/sJ2AFKoxtXfSyqXYCddWYR4HWNh/Naq5eaF5uYRD1lpKviwBynhmQmU6EQgCUk5H4oDs1s+pBdMlNRFrToElBcw1gqh3teZr2+mn+/Kui8ckgy1rtfMO44t5F1gp34H0/kAzt4AS/mmMrsBv2wvgypSTFyStvMGdYyWce5ZDaTybq9i/CgJsEq4wRPj41/RPdmEjG5gUBEdSJ3Z/eSo=
-          on:
-                  repo: pojntfx/mather-rb
-                  all_branches: true
-          skip_cleanup: true
         - provider: rubygems
           gem: mather-rb
           gemspec: mather-rb.gemspec
@@ -80,4 +70,14 @@ deploy:
                   all_branches: true
                   tags: true
                   condition: $TRAVIS_OS_NAME = linux
+          skip_cleanup: true
+        - provider: releases
+          file:
+                  - ./.bin/mather-rb-server-linux-amd64
+                  - ./.bin/mather-rb-server-darwin-amd64
+          api_key:
+                  secure: o2NMONAp8+tb6h8c1Y5q98REUDMxedjbY2dbP9wksKtnKEaFDW1A3lnc00R/ilvaWoZAa0NyeIQl+lTDe4KkTIto9pCCNrnxp2TawdXyf1pkDoP54R7W64xOr/jAYDOBtncm3lsKORJWjCpKxroOvv350Te93M5c5IR1C7SH3ro59Vx6UUiq6FGYCcQywevtxizrlZB65BWw4vgjCpSRVaAnXn1ENuJvJxGIibukMmLNomIAZMzbiddzZMcqNBraCOxZ6ntFz8J3IlgdJUia7tNB2hHvgtYNC/SZ5QSX1Sd2jwIEJDXAAPAhrPzHHNdzPm/SwJX7GqaVdkRpteAELAsBeBA0cyZoSOt+DrgXJ6F6gWM1KzSfGwLDAnJmJFvVoJIXBBaNWYuXhjUogOJ8suB0CMn69wAFMxp0vFIFlhom7RrTN6bzfdz4vlkAO65dQBDLhw6d0tZsaWROKlgf4AW/sJ2AFKoxtXfSyqXYCddWYR4HWNh/Naq5eaF5uYRD1lpKviwBynhmQmU6EQgCUk5H4oDs1s+pBdMlNRFrToElBcw1gqh3teZr2+mn+/Kui8ckgy1rtfMO44t5F1gp34H0/kAzt4AS/mmMrsBv2wvgypSTFyStvMGdYyWce5ZDaTybq9i/CgJsEq4wRPj41/RPdmEjG5gUBEdSJ3Z/eSo=
+          on:
+                  repo: pojntfx/mather-rb
+                  all_branches: true
           skip_cleanup: true
