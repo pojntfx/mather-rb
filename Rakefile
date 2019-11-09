@@ -3,6 +3,7 @@ require 'ptools'
 require 'os'
 require 'open-uri'
 require 'zlib'
+require 'rerun'
 
 PROTO_DIR = File.join('src', 'proto')
 PROTO_FILE = 'mather.proto'
@@ -142,4 +143,11 @@ end
 
 task :run do
   ruby File.join(EXE_DIR, "#{EXE_FILE} start")
+end
+
+task :watch do
+  options = Rerun::Options.parse config_file: '.rerun'
+  options[:cmd] = 'bundle exec rake && bundle exec rake run'
+  options[:pattern] = '{cmd/**/*,src/lib/*.rb,src/proto/*.proto,src/svc/*.rb}'
+  Rerun::Runner.keep_running(options[:cmd], options)
 end
