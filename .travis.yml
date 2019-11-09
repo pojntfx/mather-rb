@@ -14,25 +14,24 @@ addons:
                 packages:
                         - ruby-dev
 
-matrix:
+before_install:
+        - sudo gem install bundler
+bundler_args: --path vendor/bundle
+
+script:
+        - bundle pristine
+        - bundle exec rake clean
+        - bundle exec rake
+        - gem build mather-rb.gemspec
+        - sudo gem install mather-rb-*.gem
+        - mather-rb-server --version
+        - sudo rm `which mather-rb-server`
+
+jobs:
         include:
-                - stage: build
-                  name: Build and Test
+                - stage: test-rubyc
+                  name: Test (with `rubyc`)
                   script:
-                          - sudo gem install bundler
-                          - bundle install --path vendor/bundle
-                          - bundle pristine
-                          - bundle exec rake clean
-                          - bundle exec rake
-                          - gem build mather-rb.gemspec
-                          - sudo gem install mather-rb-*.gem
-                          - mather-rb-server --version
-                          - sudo rm `which mather-rb-server`
-                - stage: build-rubyc
-                  name: Build and Test (with `rubyc`)
-                  script:
-                          - sudo gem install bundler
-                          - bundle install --path vendor/bundle
                           - bundle pristine
                           - bundle exec rake clean
                           - bundle exec rake
