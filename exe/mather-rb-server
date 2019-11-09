@@ -4,6 +4,7 @@ lib_dir = File.join(this_dir, '..', 'src', 'svc')
 $LOAD_PATH.unshift(lib_dir)
 
 require 'rubygems'
+require 'bundler/setup'
 require 'grpc'
 require 'mather'
 require 'commander'
