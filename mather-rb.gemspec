@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name = 'mather-rb'
-  spec.version = '0.0.2'
+  spec.version = '0.0.3'
   spec.authors = ['Felicitas Pojtinger']
   spec.email = %w[felicitas@pojtinger.com]
 
@@ -23,8 +23,8 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'grpc', '~> 1.25'
   spec.add_dependency 'commander', '~> 4.4'
+  spec.add_dependency 'bundler', '~> 2.0'
 
-  spec.add_development_dependency 'bundler', '~> 2.0'
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'grpc-tools', '~> 1.25'
   spec.add_development_dependency 'ptools', '~> 1.3'

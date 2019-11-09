@@ -1,7 +1,8 @@
 PATH
   remote: .
   specs:
-    mather-rb (0.0.2)
+    mather-rb (0.0.3)
+      bundler (~> 2.0)
       commander (~> 4.4)
       grpc (~> 1.25)
 
@@ -26,7 +27,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bundler (~> 2.0)
   grpc-tools (~> 1.25)
   mather-rb!
   os (~> 1.0)
