@@ -74,6 +74,16 @@ sudo `which bundle` exec rake 'rubyc_install_binary[darwin,amd64]'
 mather-rb-server start
 ```
 
+### From Source (Development)
+
+```
+# Install dependencies
+bundle install --path vendor/bundle
+
+# Watch, run and reload
+bundle exec rake watch
+```
+
 ## License
 
 Mather Service (in Ruby) (c) 2019 Felicitas Pojtinger
