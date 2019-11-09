@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 this_dir = File.expand_path(File.dirname(__FILE__))
-lib_dir = File.join(this_dir, '..', 'src', 'svc')
+lib_dir = File.join(this_dir, '..', '..', 'src', 'svc')
 $LOAD_PATH.unshift(lib_dir)
 
 require 'rubygems'
