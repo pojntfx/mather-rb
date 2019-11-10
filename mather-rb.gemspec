@@ -17,7 +17,7 @@ Gem::Specification.new do |spec|
     Dir.glob('{src,cmd}/**/*', File::FNM_DOTMATCH).reject do |f|
       File.directory?(f)
     end
-  spec.bindir = File.join('cmd', 'server')
+  spec.bindir = File.join('cmd', 'mather-rb-server')
   spec.executables = spec.files.grep(%r{^cmd/}) { |f| File.basename(f) }
   spec.require_paths = %w[src]
 
