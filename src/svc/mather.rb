@@ -1,5 +1,5 @@
 this_dir = File.expand_path(File.dirname(__FILE__))
-proto_dir = File.join(this_dir, '..', 'proto', '.generated')
+proto_dir = File.join(this_dir, '..', 'proto', 'generated')
 lib_dir = File.join(this_dir, '..', 'lib')
 $LOAD_PATH.unshift(proto_dir)
 $LOAD_PATH.unshift(lib_dir)

@@ -7,7 +7,7 @@ require 'rerun'
 
 PROTO_DIR = File.join('src', 'proto')
 PROTO_FILE = 'mather.proto'
-PROTO_OUTPUT_DIR = '.generated'
+PROTO_OUTPUT_DIR = 'generated'
 PROTO_OUTPUT_FILES =
   Dir.glob(File.join('src', 'proto', PROTO_OUTPUT_DIR, '*pb.*'))
 BUILD_DIR = '.build'
@@ -20,7 +20,7 @@ BIN_SRC_DIR = File.join('cmd')
 SRC_DIRS = [BIN_SRC_DIR, 'src']
 GEMFILE_LOCK = 'Gemfile.lock'
 EXE_FILE = 'mather-rb-server'
-VENDOR_DIR = 'vendor/bundle'
+VENDOR_DIR = '.vendor/bundle'
 RUBYC_DIR = '/tmp/rubyc'
 INSTALL_LOCATION = File.join('/usr', 'local', 'bin', EXE_FILE)
 
