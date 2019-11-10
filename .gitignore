@@ -9,6 +9,5 @@
 /**/**/**/*pb.*
 /.bin/
 /.build/
-/vendor/
+/.vendor/
 /mather-rb-*.gem
-.generated/

@@ -29,7 +29,7 @@ mather-rb-server start
 
 ```bash
 # Install dependencies
-bundle install --path vendor/bundle
+bundle install --path .vendor/bundle
 
 # Clean (optional)
 bundle exec rake clean
@@ -45,7 +45,7 @@ bundle exec rake run
 
 ```bash
 # Install dependencies
-bundle install --path vendor/bundle
+bundle install --path .vendor/bundle
 
 # Install dependencies (for `rubyc`)
 sudo `which bundle` exec rake rubyc_install_dependencies
@@ -78,7 +78,7 @@ mather-rb-server start
 
 ```
 # Install dependencies
-bundle install --path vendor/bundle
+bundle install --path .vendor/bundle
 
 # Watch, run and reload
 bundle exec rake watch
