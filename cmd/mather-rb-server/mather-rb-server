@@ -16,7 +16,7 @@ class MatherServer
     program :name, 'Mather Server (in Ruby)'
     program :version, '1.0.0'
     program :description,
-            'A simple math gRPC microservice, for the purpose of learning and evaluating Ruby and gRPC.'
+            'Simple Ruby gRPC microservice that does math.'
 
     command :start do |c|
       c.syntax = 'mather-rb-server start'

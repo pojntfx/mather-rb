@@ -25,7 +25,7 @@ gem install mather-rb
 mather-rb-server start
 ```
 
-### From Source (Interpreter)
+### From Source (Toolchain)
 
 ```bash
 # Install dependencies
