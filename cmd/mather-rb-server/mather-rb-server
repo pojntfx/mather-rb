@@ -21,7 +21,7 @@ class MatherServer
     command :start do |c|
       c.syntax = 'mather-rb-server start'
       c.description = 'Starts the server'
-      c.option '--port PORT', String, "Server's port (by default :30000)"
+      c.option '--port PORT', String, "Server's port (default \":30000\")"
 
       c.action do |args, options|
         port = options.port || ':30000'
