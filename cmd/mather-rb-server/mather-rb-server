@@ -8,8 +8,8 @@ require 'bundler/setup'
 require 'grpc'
 require 'mather'
 require 'commander'
-require 'logging'
-LOG = Logging.logger(STDOUT) if !defined?(LOG)
+require 'ougai'
+LOG = Ougai::Logger.new(STDOUT) if !defined?(LOG)
 
 class MatherServer
   include Commander::Methods
