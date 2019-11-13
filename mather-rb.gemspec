@@ -24,6 +24,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'grpc', '~> 1.25'
   spec.add_dependency 'commander', '~> 4.4'
   spec.add_dependency 'bundler', '~> 2.0'
+  spec.add_dependency 'logging', '~> 2.2'
 
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rerun', '~> 0.13.0'
