@@ -8,6 +8,8 @@ require 'bundler/setup'
 require 'grpc'
 require 'mather'
 require 'commander'
+require 'logging'
+LOG = Logging.logger(STDOUT) if !defined?(LOG)
 
 class MatherServer
   include Commander::Methods
@@ -15,8 +17,7 @@ class MatherServer
   def run
     program :name, 'Mather Server (in Ruby)'
     program :version, '1.0.0'
-    program :description,
-            'Simple Ruby gRPC microservice that does math.'
+    program :description, 'Simple Ruby gRPC microservice that does math.'
 
     command :start do |c|
       c.syntax = 'mather-rb-server start'
@@ -30,7 +31,7 @@ class MatherServer
         s.add_http2_port("0.0.0.0#{port}", :this_port_is_insecure)
         s.handle(MatherService)
 
-        puts "Server started on port #{port}"
+        LOG.info "Server started on port #{port}"
         s.run_till_terminated_or_interrupted([1, 'int', 'SIGQUIT'])
       end
     end

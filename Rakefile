@@ -3,6 +3,7 @@ require 'ptools'
 require 'os'
 require 'open-uri'
 require 'zlib'
+# require 'rerun'
 
 PROTO_DIR = File.join('src', 'proto')
 PROTO_FILE = 'mather.proto'
