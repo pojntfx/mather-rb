@@ -7,8 +7,8 @@ $LOAD_PATH.unshift(lib_dir)
 require 'mather_services_pb'
 require 'grpc'
 require 'mather'
-require 'logging'
-LOG = Logging.logger(STDOUT) if !defined?(LOG)
+require 'ougai'
+LOG = Ougai::Logger.new(STDOUT) if !defined?(LOG)
 
 class MatherService < Mather::Math::Service
   # add adds two numbers
