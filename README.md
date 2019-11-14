@@ -48,11 +48,11 @@ bundle exec rake run
 bundle install --path .vendor/bundle
 
 # Install dependencies (for `rubyc`)
-sudo `which bundle` exec rake rubyc_install_dependencies
-sudo `which bundle` exec rake 'rubyc_install_rubyc[linux,amd64]'
+sudo -E env "PATH=$PATH" bundle exec rake rubyc_install_dependencies
+sudo -E env "PATH=$PATH" bundle exec rake 'rubyc_install_rubyc[linux,amd64]'
 # or
 bundle exec rake rubyc_install_dependencies
-sudo `which bundle` exec rake 'rubyc_install_rubyc[darwin,amd64]'
+sudo -E env "PATH=$PATH" bundle exec rake 'rubyc_install_rubyc[darwin,amd64]'
 
 # Clean (optional)
 bundle exec rake clean
@@ -66,9 +66,9 @@ bundle exec rake 'rubyc_build_binary[linux,amd64]'
 bundle exec rake 'rubyc_build_binary[darwin,amd64]'
 
 # Install binary (from `rubyc`)
-sudo `which bundle` exec rake 'rubyc_install_binary[linux,amd64]'
+sudo -E env "PATH=$PATH" bundle exec rake 'rubyc_install_binary[linux,amd64]'
 # or
-sudo `which bundle` exec rake 'rubyc_install_binary[darwin,amd64]'
+sudo -E env "PATH=$PATH" bundle exec rake 'rubyc_install_binary[darwin,amd64]'
 
 # Run
 mather-rb-server start
