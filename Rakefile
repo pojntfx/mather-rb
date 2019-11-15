@@ -144,7 +144,7 @@ task :clean do
   PROTO_OUTPUT_FILES.each { |file| File.delete(file) if File.exists?(file) }
 end
 
-task :run do
+task :start do
   ruby File.join(EXE_DIR, "#{EXE_FILE} start")
 end
 
@@ -159,9 +159,10 @@ end
 
 Rake::TestTask.new { |t| t.pattern = '**/*_test.rb' }
 
-task :watch do
+task :dev do
   options = Rerun::Options.parse config_file: '.rerun'
-  options[:cmd] = 'bundle exec rake && bundle exec rake run'
+  options[:cmd] =
+    'bundle exec rake && bundle exec rake unit_tests && bundle exec rake start'
   options[:pattern] = '{cmd/**/*,src/lib/*.rb,src/proto/*.proto,src/svc/*.rb}'
   Rerun::Runner.keep_running(options[:cmd], options)
 end
