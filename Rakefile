@@ -29,13 +29,13 @@ INSTALL_LOCATION = File.join('/usr', 'local', 'bin', EXE_FILE)
 
 task default: %w[protoc_build]
 
-task :rubyc_install_dependencies do
+task :rubyc_dependency_install do
   sh 'yum install -y squashfs-tools' if File.which('yum')
   sh 'apt-get install -y squashfs-tools' if File.which('apt-get')
   sh 'brew install squashfs' if File.which('brew')
 end
 
-task :rubyc_install_rubyc, %i[platform architecture] do |tasks, args|
+task :rubyc_rubyc_install, %i[platform architecture] do |tasks, args|
   download = {}
   if OS.linux?
     puts 'Downloading rubyc for Linux ...'
@@ -71,7 +71,7 @@ task :protoc_build do
   end
 end
 
-task :rubyc_build_binary, %i[platform architecture] do |tasks, args|
+task :rubyc_binary_build, %i[platform architecture] do |tasks, args|
   TARGET_FILE = "#{EXE_FILE}-#{args[:platform]}-#{args[:architecture]}"
   FileUtils.mkdir_p(BUILD_DIR)
   FileUtils.mkdir_p(BIN_DIR)
@@ -130,7 +130,7 @@ task :rubyc_build_binary, %i[platform architecture] do |tasks, args|
   end
 end
 
-task :rubyc_install_binary, %i[platform architecture] do |tasks, args|
+task :rubyc_binary_install, %i[platform architecture] do |tasks, args|
   TARGET_FILE = "#{EXE_FILE}-#{args[:platform]}-#{args[:architecture]}"
   FileUtils.chmod('+x', File.join(BIN_DIR, TARGET_FILE))
 
@@ -160,7 +160,23 @@ task :unit_tests do
 end
 
 task :integration_tests do
-  Rake::Task['rubyc_install_binary'].invoke
+  sh 'gem build mather-rb.gemspec'
+
+  sh 'gem install mather-rb-*.gem'
+
+  sh 'mather-rb-server --version'
+
+  FileUtils.rm(File.which('mather-rb-server'))
+
+  LOG.info 'Passed'
+end
+
+task :rubyc_binary_integration_tests,
+     %i[platform architecture] do |tasks, args|
+  Rake::Task['rubyc_binary_install'].invoke(
+    args[:platform],
+    args[:architecture]
+  )
 
   sh 'mather-rb-server --version'
 
