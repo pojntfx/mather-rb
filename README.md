@@ -25,7 +25,9 @@ gem install mather-rb
 mather-rb-server start
 ```
 
-### From Source (Toolchain)
+### From Source
+
+#### Prerequisites
 
 ```bash
 # Install dependencies
@@ -36,52 +38,67 @@ bundle exec rake clean
 
 # Build
 bundle exec rake
+```
 
+#### Start With Toolchain
+
+```bash
 # Run
 bundle exec rake run
 ```
 
-### From Source (Binary)
+#### Start As Standalone Binary
 
 ```bash
-# Install dependencies
-bundle install --path .vendor/bundle
-
 # Install dependencies (for `rubyc`)
 sudo -E env "PATH=$PATH" bundle exec rake rubyc_install_dependencies
-sudo -E env "PATH=$PATH" bundle exec rake 'rubyc_install_rubyc[linux,amd64]'
+sudo -E env "PATH=$PATH" bundle exec rake 'rubyc_rubyc_install[linux,amd64]'
 # or
 bundle exec rake rubyc_install_dependencies
-sudo -E env "PATH=$PATH" bundle exec rake 'rubyc_install_rubyc[darwin,amd64]'
-
-# Clean (optional)
-bundle exec rake clean
-
-# Build
-bundle exec rake
+sudo -E env "PATH=$PATH" bundle exec rake 'rubyc_rubyc_install[darwin,amd64]'
 
 # Build binary (with `rubyc`)
-bundle exec rake 'rubyc_build_binary[linux,amd64]'
+bundle exec rake 'rubyc_binary_build[linux,amd64]'
 # or
-bundle exec rake 'rubyc_build_binary[darwin,amd64]'
+bundle exec rake 'rubyc_binary_build[darwin,amd64]'
 
 # Install binary (from `rubyc`)
-sudo -E env "PATH=$PATH" bundle exec rake 'rubyc_install_binary[linux,amd64]'
+sudo -E env "PATH=$PATH" bundle exec rake 'rubyc_binary_install[linux,amd64]'
 # or
-sudo -E env "PATH=$PATH" bundle exec rake 'rubyc_install_binary[darwin,amd64]'
+sudo -E env "PATH=$PATH" bundle exec rake 'rubyc_binary_install[darwin,amd64]'
 
 # Run
 mather-rb-server start
 ```
 
-### From Source (Development)
+#### Unit Tests
+
+```bash
+# Start unit tests
+bundle exec rake unit_tests
+```
+
+#### Integration Tests
+
+```bash
+# Start integration tests
+bundle exec rake integration_tests
+```
+
+#### Integration Tests (For Standalone Binary)
+
+```bash
+# Start integration tests (for standalone binary)
+sudo -E env "PATH=$PATH" bundle exec rake 'rubyc_binary_integration_tests[linux,amd64]'
+# or
+sudo -E env "PATH=$PATH" bundle exec rake 'rubyc_binary_integration_tests[darwin,amd64]'
+```
+
+#### Development
 
 ```
-# Install dependencies
-bundle install --path .vendor/bundle
-
-# Watch, run and reload
-bundle exec rake watch
+# Start unit tests, start server and restart both if source changed
+bundle exec rake dev
 ```
 
 ## License
