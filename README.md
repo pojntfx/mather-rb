@@ -17,7 +17,7 @@ Prebuilt binaries are available on the [releases page](https://github.com/pojntf
 
 ### From RubyGems
 
-```
+```bash
 # Install
 gem install mather-rb
 
@@ -96,7 +96,7 @@ sudo -E env "PATH=$PATH" bundle exec rake 'rubyc_binary_integration_tests[darwin
 
 #### Development
 
-```
+```bash
 # Start unit tests, start server and restart both if source changed
 bundle exec rake dev
 ```
