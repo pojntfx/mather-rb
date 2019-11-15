@@ -31,4 +31,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'grpc-tools', '~> 1.25'
   spec.add_development_dependency 'ptools', '~> 1.3'
   spec.add_development_dependency 'os', '~> 1.0'
+  spec.add_development_dependency 'minitest', '~> 5.13'
 end

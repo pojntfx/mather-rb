@@ -4,6 +4,9 @@ require 'os'
 require 'open-uri'
 require 'zlib'
 require 'rerun'
+require 'rake/testtask'
+require 'ougai'
+LOG = Ougai::Logger.new(STDOUT) if !defined?(LOG)
 
 PROTO_DIR = File.join('src', 'proto')
 PROTO_FILE = 'mather.proto'
@@ -144,6 +147,17 @@ end
 task :run do
   ruby File.join(EXE_DIR, "#{EXE_FILE} start")
 end
+
+task :unit_tests do
+  begin
+    Rake::Task['test'].invoke
+    LOG.info 'Passed'
+  rescue StandardError
+
+  end
+end
+
+Rake::TestTask.new { |t| t.pattern = '**/*_test.rb' }
 
 task :watch do
   options = Rerun::Options.parse config_file: '.rerun'
