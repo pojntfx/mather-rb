@@ -148,6 +148,8 @@ task :start do
   ruby File.join(EXE_DIR, "#{EXE_FILE} start")
 end
 
+Rake::TestTask.new { |t| t.pattern = '**/*_test.rb' }
+
 task :unit_tests do
   begin
     Rake::Task['test'].invoke
@@ -157,7 +159,15 @@ task :unit_tests do
   end
 end
 
-Rake::TestTask.new { |t| t.pattern = '**/*_test.rb' }
+task :integration_tests do
+  Rake::Task['rubyc_install_binary'].invoke
+
+  sh 'mather-rb-server --version'
+
+  FileUtils.rm(INSTALL_LOCATION)
+
+  LOG.info 'Passed'
+end
 
 task :dev do
   options = Rerun::Options.parse config_file: '.rerun'
