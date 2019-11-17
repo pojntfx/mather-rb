@@ -160,7 +160,7 @@ task :unit_tests do
 end
 
 task :integration_tests do
-  sh 'gem build mather-rb.gemspec'
+  sh 'bundle exec gem build mather-rb.gemspec'
 
   sh 'gem install mather-rb-*.gem'
 
