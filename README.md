@@ -21,7 +21,7 @@ Prebuilt binaries are available on the [releases page](https://github.com/pojntf
 # Install
 gem install mather-rb
 
-# Run
+# Start
 mather-rb-server start
 ```
 
@@ -43,7 +43,7 @@ bundle exec rake
 #### Start With Toolchain
 
 ```bash
-# Run
+# Start
 bundle exec rake start
 ```
 
@@ -67,7 +67,7 @@ sudo -E env "PATH=$PATH" bundle exec rake 'rubyc_binary_install[linux,amd64]'
 # or
 sudo -E env "PATH=$PATH" bundle exec rake 'rubyc_binary_install[darwin,amd64]'
 
-# Run
+# Start
 mather-rb-server start
 ```
 
