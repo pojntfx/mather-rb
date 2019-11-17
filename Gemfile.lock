@@ -12,7 +12,7 @@ GEM
   specs:
     commander (4.4.7)
       highline (~> 2.0.0)
-    ffi (1.11.1)
+    ffi (1.11.2)
     google-protobuf (3.10.1)
     googleapis-common-protos-types (1.0.4)
       google-protobuf (~> 3.0)
