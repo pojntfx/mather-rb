@@ -162,9 +162,9 @@ end
 task :integration_tests do
   sh 'bundle exec gem build mather-rb.gemspec'
 
-  sh 'gem install mather-rb-*.gem'
+  sh 'bundle exec gem install mather-rb-*.gem'
 
-  sh 'mather-rb-server --version'
+  sh 'bundle exec mather-rb-server --version'
 
   FileUtils.rm(File.which('mather-rb-server'))
 
