@@ -44,7 +44,7 @@ bundle exec rake
 
 ```bash
 # Run
-bundle exec rake run
+bundle exec rake start
 ```
 
 #### Start As Standalone Binary
